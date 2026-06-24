@@ -1,7 +1,7 @@
 // TAG v181 clean consolidated behavior.
 (function(){
   'use strict';
-  var VERSION='181';
+  var VERSION='182';
   var d=document;
   function $(s,root){return (root||d).querySelector(s)}
   function $$(s,root){return Array.prototype.slice.call((root||d).querySelectorAll(s))}
@@ -17,27 +17,27 @@
     field.innerHTML='';
     if(!field.parentNode) d.body.insertBefore(field,d.body.firstChild);
     var isHome=d.body.classList.contains('home');
-    var count=isHome?50:18;
+    var count=isHome?68:10;
     for(var i=0;i<count;i++){
       var s=d.createElement('span');
       var depth=Math.random();
       var kind=Math.random();
       var cls=depth<.42?'sparkle-far':(depth<.82?'sparkle-mid':'sparkle-near');
-      cls+=' '+(kind<.06?'sparkle-star':(kind<.16?'sparkle-glow':'sparkle-dust'));
+      cls+=' '+(kind<.28?'sparkle-star':(kind<.52?'sparkle-glow':'sparkle-dust'));
       s.className='sparkle '+cls;
       var isStar=cls.indexOf('sparkle-star')>-1;
       var isGlow=cls.indexOf('sparkle-glow')>-1;
-      var size=isStar?rand(5,10):(isGlow?rand(7,14):(cls.indexOf('sparkle-near')>-1?rand(8,18):(cls.indexOf('sparkle-mid')>-1?rand(5,11):rand(2.5,6))));
-      var top=isHome?rand(42,122):rand(78,160);
+      var size=isStar?rand(4,9):(isGlow?rand(5,10):(cls.indexOf('sparkle-near')>-1?rand(5,10):(cls.indexOf('sparkle-mid')>-1?rand(3.5,7):rand(2,4.5))));
+      var top=isHome?rand(38,126):rand(82,158);
       s.style.setProperty('--x',rand(1,99).toFixed(2)+'vw');
       s.style.setProperty('--y',top.toFixed(2)+'vh');
       s.style.setProperty('--size',size.toFixed(2)+'px');
-      s.style.setProperty('--dur',rand(128,230).toFixed(2)+'s');
+      s.style.setProperty('--dur',rand(108,195).toFixed(2)+'s');
       s.style.setProperty('--delay',(-rand(0,120)).toFixed(2)+'s');
-      s.style.setProperty('--sway',(Math.random()<.5?-1:1)*rand(36,115).toFixed(1)+'px');
-      s.style.setProperty('--drift',(Math.random()<.5?-1:1)*rand(45,150).toFixed(1)+'px');
-      s.style.setProperty('--op',rand(cls.indexOf('sparkle-far')>-1?.16:.26,isStar?.70:(isGlow?.52:.46)).toFixed(2));
-      s.style.setProperty('--pulse',rand(18,38).toFixed(2)+'s');
+      s.style.setProperty('--sway',(Math.random()<.5?-1:1)*rand(28,92).toFixed(1)+'px');
+      s.style.setProperty('--drift',(Math.random()<.5?-1:1)*rand(32,118).toFixed(1)+'px');
+      s.style.setProperty('--op',rand(cls.indexOf('sparkle-far')>-1?.10:.18,isStar?.58:(isGlow?.42:.34)).toFixed(2));
+      s.style.setProperty('--pulse',rand(15,32).toFixed(2)+'s');
       s.style.setProperty('--glow-delay',(-rand(0,24)).toFixed(2)+'s');
       field.appendChild(s);
     }
