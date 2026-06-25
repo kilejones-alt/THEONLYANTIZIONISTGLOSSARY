@@ -1,7 +1,7 @@
-// TAG v184 clean consolidated behavior.
+// TAG v181 clean consolidated behavior.
 (function(){
   'use strict';
-  var VERSION='186';
+  var VERSION='188';
   var d=document;
   function $(s,root){return (root||d).querySelector(s)}
   function $$(s,root){return Array.prototype.slice.call((root||d).querySelectorAll(s))}
@@ -17,34 +17,28 @@
     field.innerHTML='';
     if(!field.parentNode) d.body.insertBefore(field,d.body.firstChild);
     var isHome=d.body.classList.contains('home');
-    var count=isHome?50:10;
+    var count=isHome?50:22;
     for(var i=0;i<count;i++){
       var s=d.createElement('span');
-      var depthRoll=Math.random();
-      var depth=depthRoll<0.28?'sparkle-far':(depthRoll<0.66?'sparkle-mid':'sparkle-near');
-      var kindRoll=Math.random();
-      var kind=kindRoll<0.52?'sparkle-star':(kindRoll<0.78?'sparkle-glow':'sparkle-dust');
-      var cls=depth+' '+kind;
+      var depth=Math.random();
+      var kind=Math.random();
+      var cls=depth<.42?'sparkle-far':(depth<.82?'sparkle-mid':'sparkle-near');
+      cls+=' '+(kind<.28?'sparkle-star':(kind<.52?'sparkle-glow':'sparkle-dust'));
       s.className='sparkle '+cls;
-      var isStar=kind==='sparkle-star';
-      var isGlow=kind==='sparkle-glow';
-      var size;
-      if(depth==='sparkle-near') size=isStar?rand(8,14):(isGlow?rand(7,12):rand(5,9));
-      else if(depth==='sparkle-mid') size=isStar?rand(5,10):(isGlow?rand(5,9):rand(3.6,6.5));
-      else size=isStar?rand(3.5,7):(isGlow?rand(3.2,6):rand(2.2,4.8));
-      var top=isHome?rand(7,108):rand(78,148);
-      s.style.setProperty('--x',rand(3,97).toFixed(2)+'vw');
+      var isStar=cls.indexOf('sparkle-star')>-1;
+      var isGlow=cls.indexOf('sparkle-glow')>-1;
+      var size=isStar?rand(5,10):(isGlow?rand(6,11):(cls.indexOf('sparkle-near')>-1?rand(6.5,12):(cls.indexOf('sparkle-mid')>-1?rand(4.5,8.5):rand(2.8,5.5))));
+      var top=isHome?rand(26,108):rand(24,118);
+      s.style.setProperty('--x',rand(1,99).toFixed(2)+'vw');
       s.style.setProperty('--y',top.toFixed(2)+'vh');
       s.style.setProperty('--size',size.toFixed(2)+'px');
-      s.style.setProperty('--dur',(isHome?rand(68,128):rand(54,96)).toFixed(2)+'s');
-      s.style.setProperty('--delay',(-rand(0,160)).toFixed(2)+'s');
-      s.style.setProperty('--sway',(Math.random()<.5?-1:1)*rand(10,54).toFixed(1)+'px');
-      s.style.setProperty('--drift',(Math.random()<.5?-1:1)*rand(16,66).toFixed(1)+'px');
-      var minOp=depth==='sparkle-far'?0.18:(depth==='sparkle-mid'?0.34:0.48);
-      var maxOp=isStar?(depth==='sparkle-near'?0.98:0.82):(isGlow?(depth==='sparkle-near'?0.88:0.72):(depth==='sparkle-near'?0.72:0.58));
-      s.style.setProperty('--op',rand(minOp,maxOp).toFixed(2));
-      s.style.setProperty('--pulse',(isHome?rand(8,18):rand(7,14)).toFixed(2)+'s');
-      s.style.setProperty('--glow-delay',(-rand(0,40)).toFixed(2)+'s');
+      s.style.setProperty('--dur',rand(122,210).toFixed(2)+'s');
+      s.style.setProperty('--delay',(-rand(0,120)).toFixed(2)+'s');
+      s.style.setProperty('--sway',(Math.random()<.5?-1:1)*rand(22,74).toFixed(1)+'px');
+      s.style.setProperty('--drift',(Math.random()<.5?-1:1)*rand(26,86).toFixed(1)+'px');
+      s.style.setProperty('--op',rand(cls.indexOf('sparkle-far')>-1?.22:.34,isStar?.88:(isGlow?.74:.58)).toFixed(2));
+      s.style.setProperty('--pulse',rand(18,36).toFixed(2)+'s');
+      s.style.setProperty('--glow-delay',(-rand(0,24)).toFixed(2)+'s');
       field.appendChild(s);
     }
   }
@@ -87,7 +81,7 @@
     });
   }
   function initLetterHover(){
-    var sels='.home-kicker,.home-subtitle,.home-author,.term-list a,.gallery-topbar a,.music-toggle,.entry-side h3,.entry-side a,.eyebrow,.resource-grid h2,.gallery-main h1,.gallery-main h2';
+    var sels='.home-kicker,.home-subtitle,.home-author,.term-list a,.alphabet a,.gallery-topbar a,.music-toggle,.entry-side h3,.entry-side a,.intro-card h2,.intro-card p,.tiny-citation-box,.eyebrow,.resource-grid h2,.gallery-main h1,.gallery-main h2';
     $$(sels).forEach(wrapLetters);
   }
 
